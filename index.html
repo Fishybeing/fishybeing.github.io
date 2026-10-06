@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matt Makes Games</title>
-<meta name="description" content="Matt's game dev portfolio: Haystack Hustle, Kitewick: Lantern Run and Nebula Client.">
+<meta name="description" content="Matt's game dev portfolio: Haystack Hustle, Kitewick: Lantern Run, Nebula Client and a CMS 2018 co-op mod.">
 <meta name="theme-color" content="#245edb">
 <link rel="stylesheet" href="xp.css">
 <noscript><style>.bootseq{display:none}.window[hidden]{display:flex;position:relative;margin:16px auto}.desktop{position:relative;overflow:auto}</style></noscript>
@@ -56,6 +56,10 @@
     <circle cx="17" cy="14" r="3.5" fill="#2b2f36" stroke="#7ee787" stroke-width="2.5"/>
     <circle cx="17" cy="34" r="3.5" fill="#2b2f36" stroke="#7ee787" stroke-width="2.5"/>
     <circle cx="31" cy="34" r="3.5" fill="#2b2f36" stroke="#7ee787" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="i-wrench" viewBox="0 0 48 48">
+    <rect x="6" y="6" width="36" height="36" rx="6" fill="#b8402f" stroke="#111" stroke-width="2"/>
+    <path d="M31 11.5a7 7 0 0 0-6.7 9.2L12.8 32.2a2.6 2.6 0 0 0 3.7 3.7L28 24.4a7 7 0 0 0 9-8.6l-4.2 4.2-3.3-.9-.9-3.3 4.2-4.2a7 7 0 0 0-1.8-.1z" fill="#eef2f6" stroke="#111" stroke-width="1.5" stroke-linejoin="round"/>
   </symbol>
   <symbol id="i-defrag" viewBox="0 0 48 48">
     <rect x="5" y="8" width="38" height="32" rx="3" fill="#e9eef6" stroke="#3e5468" stroke-width="2"/>
@@ -158,6 +162,7 @@
     <li><button class="icon" data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span>Haystack Hustle</span></button></li>
     <li><button class="icon" data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span>Kitewick</span></button></li>
     <li><button class="icon" data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span>Nebula Client</span></button></li>
+    <li><button class="icon" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-wrench"/></svg><span>CMS 2018 Co-op</span></button></li>
     <li><button class="icon" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>AnyPS5 PRs</span></button></li>
     <li><button class="icon" data-open="status"><svg aria-hidden="true"><use href="#i-defrag"/></svg><span>AnyPS5 Progress</span></button></li>
     <li><button class="icon" data-open="about"><svg aria-hidden="true"><use href="#i-notepad"/></svg><span>About Me</span></button></li>
@@ -297,6 +302,42 @@ things sitting on the hill:
       <p class="infobar"><svg aria-hidden="true"><use href="#i-info"/></svg>Private build.</p>
     </div>
     <footer class="statusbar"><span>v1.0.0</span><span>Minecraft 26.3 · 26.2 · 1.21.11 · Fabric · Java 25</span></footer>
+  </section>
+
+  <section class="window" id="win-cmscoop" data-icon="i-wrench" style="--w: 640px" role="dialog" aria-labelledby="t-cmscoop" hidden>
+    <header class="titlebar">
+      <svg aria-hidden="true"><use href="#i-wrench"/></svg>
+      <h2 id="t-cmscoop">CMS 2018 Co-op</h2>
+      <div class="controls"><button class="min" aria-label="Minimize"></button><button class="max" aria-label="Maximize"></button><button class="close" aria-label="Close"></button></div>
+    </header>
+    <nav class="menubar" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Help</span></nav>
+    <div class="window-body">
+      <div class="shot"><img src="img/cms-coop.jpg" alt="A second player, an animated mechanic, walking through the garage in Car Mechanic Simulator 2018" width="1200" height="675" loading="lazy"></div>
+      <p class="pitch">A multiplayer mod for Car Mechanic Simulator 2018. Invite a friend over Steam and fix cars in the same garage. The game has no multiplayer at all, so everything is synced by hand: the cars, every part, the doors and the lifts.</p>
+      <fieldset>
+        <legend>Stats</legend>
+        <div class="stats">
+          <div><b>4</b><span>players per garage</span></div>
+          <div><b>4x</b><span>part syncs per second</span></div>
+          <div><b>3</b><span>retargeted animations</span></div>
+          <div><b>0</b><span>ports to forward</span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Under the hood</legend>
+        <ul class="notes">
+          <li>Loads with BepInEx and hooks the game with Harmony. Networking rides on the Steamworks copy the game already ships, so invites go through Steam.</li>
+          <li>The host's garage is the real one. Cars are streamed with the game's own save code, then only the parts that changed get sent.</li>
+          <li>Guests get their save backed up and restored, and their job system is blocked so it can't edit the host's cars.</li>
+          <li>Other players are a Mixamo mechanic. A Blender script retargets idle, walk and run, paints his texture and bakes it all into one file the mod turns into a skinned mesh at runtime.</li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Built with</legend>
+        <ul class="chips"><li>C#</li><li>BepInEx</li><li>Harmony</li><li>Steamworks.NET</li><li>Blender Python</li></ul>
+      </fieldset>
+      <div class="actions"><a class="xp-btn" href="https://github.com/Fishybeing/cms2018-coop/releases/latest" target="_blank" rel="noopener">Download</a><a class="xp-btn" href="https://github.com/Fishybeing/cms2018-coop" target="_blank" rel="noopener">View source</a></div>
+    </div>
   </section>
 
   <section class="window" id="win-anyps5" data-icon="i-merge" style="--w: 560px" role="dialog" aria-labelledby="t-anyps5" hidden>
@@ -450,6 +491,7 @@ things sitting on the hill:
       <li><button data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span><b>Haystack Hustle</b><small>3D haystack-digging simulator</small></span></button></li>
       <li><button data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span><b>Kitewick: Lantern Run</b><small>Papercraft platformer</small></span></button></li>
       <li><button data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span><b>Nebula Client</b><small>Minecraft utility mod</small></span></button></li>
+      <li><button data-open="cmscoop"><svg aria-hidden="true"><use href="#i-wrench"/></svg><span><b>CMS 2018 Co-op</b><small>Multiplayer mod</small></span></button></li>
       <li><button data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span><b>AnyPS5 contributions</b><small>Open-source pull requests</small></span></button></li>
       <li><button data-open="status"><svg aria-hidden="true"><use href="#i-defrag"/></svg><span><b>AnyPS5 Progress</b><small>Live progress map</small></span></button></li>
       <li class="sep" role="separator"></li>
