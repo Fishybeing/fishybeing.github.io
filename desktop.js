@@ -4,7 +4,6 @@
   const startButton = document.getElementById("start");
   const startMenu = document.getElementById("startmenu");
   const balloon = document.getElementById("balloon");
-  const boot = document.getElementById("boot");
   const shutdown = document.getElementById("shutdown");
   const clock = document.getElementById("clock");
   const small = window.matchMedia("(max-width: 700px)");
@@ -15,6 +14,10 @@
   let cascade = 0;
   let balloonTimer = 0;
 
+  document.querySelectorAll(".icons li").forEach(function (item, index) {
+    item.style.setProperty("--i", String(index));
+  });
+
   document.querySelectorAll(".window").forEach(function (win) {
     const id = win.id.replace("win-", "");
     const entry = {
@@ -22,7 +25,8 @@
       title: win.querySelector(".titlebar h2").textContent,
       icon: win.dataset.icon,
       task: null,
-      placed: false
+      placed: false,
+      busy: false
     };
     windows.set(id, entry);
     win.addEventListener("pointerdown", function () {
@@ -43,10 +47,57 @@
     makeDraggable(win);
   });
 
-  function open(id) {
+  function zoomFrom(win, from) {
+    if (still || !from || !win.animate) return;
+    const to = win.getBoundingClientRect();
+    if (!to.width || !to.height) return;
+    win.animate([
+      {
+        transformOrigin: "0 0",
+        transform: "translate(" + (from.left - to.left) + "px, " + (from.top - to.top) + "px) scale(" + Math.max(0.04, from.width / to.width) + ", " + Math.max(0.04, from.height / to.height) + ")",
+        opacity: 0.15
+      },
+      { transformOrigin: "0 0", transform: "none", opacity: 1 }
+    ], { duration: 240, easing: "cubic-bezier(0.2, 0.75, 0.2, 1)" });
+  }
+
+  function afterAnimation(animation, duration, done) {
+    let called = false;
+    function once() {
+      if (called) return;
+      called = true;
+      done();
+    }
+    animation.onfinish = once;
+    animation.oncancel = once;
+    setTimeout(once, duration + 120);
+  }
+
+  function zoomTo(win, to, done) {
+    if (still || !to || !win.animate) {
+      done();
+      return;
+    }
+    const from = win.getBoundingClientRect();
+    const animation = win.animate([
+      { transformOrigin: "0 0", transform: "none", opacity: 1 },
+      {
+        transformOrigin: "0 0",
+        transform: "translate(" + (to.left - from.left) + "px, " + (to.top - from.top) + "px) scale(" + Math.max(0.04, to.width / from.width) + ", " + Math.max(0.04, to.height / from.height) + ")",
+        opacity: 0.15
+      }
+    ], { duration: 200, easing: "cubic-bezier(0.5, 0, 0.75, 0.4)", fill: "forwards" });
+    afterAnimation(animation, 200, function () {
+      done();
+      animation.cancel();
+    });
+  }
+
+  function open(id, source) {
     const entry = windows.get(id);
-    if (!entry) return;
+    if (!entry || entry.busy) return;
     closeStart();
+    const wasHidden = entry.el.hidden;
     entry.el.hidden = false;
     if (small.matches) entry.el.classList.add("maximized");
     if (!entry.placed) {
@@ -55,6 +106,7 @@
     }
     if (!entry.task) entry.task = addTask(id, entry);
     focus(id);
+    if (wasHidden) zoomFrom(entry.el, source || (entry.task && entry.task.getBoundingClientRect()));
   }
 
   function place(win) {
@@ -98,8 +150,25 @@
     }
   }
 
-  function close(id) {
+  function close(id, instant) {
     const entry = windows.get(id);
+    if (entry.el.hidden || instant || still || !entry.el.animate) {
+      finishClose(entry);
+      return;
+    }
+    entry.busy = true;
+    const animation = entry.el.animate([
+      { opacity: 1, transform: "none" },
+      { opacity: 0, transform: "scale(0.96)" }
+    ], { duration: 130, easing: "ease-in", fill: "forwards" });
+    afterAnimation(animation, 130, function () {
+      finishClose(entry);
+      animation.cancel();
+    });
+  }
+
+  function finishClose(entry) {
+    entry.busy = false;
     entry.el.hidden = true;
     entry.el.classList.remove("active", "maximized");
     if (entry.task) {
@@ -110,8 +179,14 @@
   }
 
   function minimize(id) {
-    windows.get(id).el.hidden = true;
-    focusTopmost();
+    const entry = windows.get(id);
+    if (entry.busy || entry.el.hidden) return;
+    entry.busy = true;
+    zoomTo(entry.el, entry.task && entry.task.getBoundingClientRect(), function () {
+      entry.busy = false;
+      entry.el.hidden = true;
+      focusTopmost();
+    });
   }
 
   function addTask(id, entry) {
@@ -127,10 +202,14 @@
     label.textContent = entry.title;
     button.append(icon, label);
     button.addEventListener("click", function () {
+      if (entry.busy) return;
       if (!entry.el.hidden && entry.el.classList.contains("active")) {
         minimize(id);
-      } else {
+      } else if (entry.el.hidden) {
         entry.el.hidden = false;
+        focus(id);
+        zoomFrom(entry.el, button.getBoundingClientRect());
+      } else {
         focus(id);
       }
     });
@@ -184,7 +263,8 @@
   }
 
   function launch(icon) {
-    if (icon.dataset.open) open(icon.dataset.open);
+    const art = icon.querySelector("svg");
+    if (icon.dataset.open) open(icon.dataset.open, art.getBoundingClientRect());
     if (icon.dataset.href) window.open(icon.dataset.href, "_blank", "noopener");
   }
 
@@ -198,9 +278,51 @@
     });
   });
 
+  const marquee = document.createElement("div");
+  marquee.className = "marquee";
+  marquee.hidden = true;
+  desktop.appendChild(marquee);
+  let band = null;
+
   desktop.addEventListener("pointerdown", function (event) {
-    if (event.target === desktop || event.target.id === "wallpaper") selectIcon(null);
+    if (event.target !== desktop && event.target.id !== "wallpaper") return;
+    selectIcon(null);
+    if (event.button !== 0 || event.pointerType !== "mouse") return;
+    const box = desktop.getBoundingClientRect();
+    band = { x: event.clientX - box.left, y: event.clientY - box.top, id: event.pointerId, active: false };
   });
+
+  window.addEventListener("pointermove", function (event) {
+    if (!band || event.pointerId !== band.id) return;
+    const box = desktop.getBoundingClientRect();
+    const x = event.clientX - box.left;
+    const y = event.clientY - box.top;
+    if (!band.active && Math.hypot(x - band.x, y - band.y) < 6) return;
+    band.active = true;
+    marquee.hidden = false;
+    const left = Math.min(x, band.x);
+    const top = Math.min(y, band.y);
+    const width = Math.abs(x - band.x);
+    const height = Math.abs(y - band.y);
+    marquee.style.left = left + "px";
+    marquee.style.top = top + "px";
+    marquee.style.width = width + "px";
+    marquee.style.height = height + "px";
+    document.querySelectorAll(".icon").forEach(function (icon) {
+      const rect = icon.getBoundingClientRect();
+      const hit = rect.right - box.left > left && rect.left - box.left < left + width
+        && rect.bottom - box.top > top && rect.top - box.top < top + height;
+      icon.classList.toggle("selected", hit);
+    });
+  });
+
+  function endBand() {
+    band = null;
+    marquee.hidden = true;
+  }
+
+  window.addEventListener("pointerup", endBand);
+  window.addEventListener("pointercancel", endBand);
 
   function openStart() {
     startMenu.hidden = false;
@@ -225,7 +347,8 @@
 
   startMenu.querySelectorAll("[data-open]").forEach(function (item) {
     item.addEventListener("click", function () {
-      open(item.dataset.open);
+      const art = item.querySelector("svg");
+      open(item.dataset.open, art ? art.getBoundingClientRect() : null);
     });
   });
 
@@ -235,7 +358,7 @@
 
   function closeAll() {
     windows.forEach(function (entry, id) {
-      if (entry.task || !entry.el.hidden) close(id);
+      if (entry.task || !entry.el.hidden) close(id, true);
     });
     cascade = 0;
   }
@@ -245,16 +368,22 @@
     closeAll();
   });
 
-  document.getElementById("turnoff").addEventListener("click", function () {
+  function powerDown() {
     closeStart();
     closeAll();
     hideBalloon();
     shutdown.hidden = false;
+  }
+
+  document.getElementById("turnoff").addEventListener("click", function () {
+    window.dispatchEvent(new Event("xp:shutdown"));
   });
+
+  window.addEventListener("xp:shutdown", powerDown);
 
   document.getElementById("poweron").addEventListener("click", function () {
     shutdown.hidden = true;
-    startBoot();
+    window.dispatchEvent(new Event("xp:reboot"));
   });
 
   document.addEventListener("keydown", function (event) {
@@ -271,11 +400,20 @@
   });
 
   window.addEventListener("xp:open", function (event) {
-    open(event.detail);
+    const detail = event.detail;
+    if (typeof detail === "string") {
+      open(detail);
+      return;
+    }
+    const box = desktop.getBoundingClientRect();
+    const source = detail.x === undefined ? null : { left: detail.x - 24 + box.left, top: detail.y - 24 + box.top, width: 48, height: 48 };
+    open(detail.id, source);
   });
 
   function tick() {
-    clock.textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    clock.title = now.toLocaleDateString([], { weekday: "long", year: "numeric", month: "long", day: "numeric" });
   }
 
   tick();
@@ -294,45 +432,10 @@
 
   balloon.querySelector(".balloon-x").addEventListener("click", hideBalloon);
 
-  let bootDone = false;
-
-  function afterBoot() {
-    if (!small.matches) open("about");
-    setTimeout(showBalloon, still ? 0 : 700);
-  }
-
-  function finishBoot() {
-    if (bootDone) return;
-    bootDone = true;
-    try {
-      sessionStorage.setItem("xp-booted", "1");
-    } catch (error) {}
-    boot.classList.add("done");
+  window.addEventListener("xp:login", function () {
     setTimeout(function () {
-      boot.hidden = true;
-      afterBoot();
-    }, still ? 0 : 450);
-  }
-
-  function startBoot() {
-    bootDone = false;
-    boot.hidden = false;
-    boot.classList.remove("done");
-    setTimeout(finishBoot, still ? 300 : 2200);
-  }
-
-  boot.addEventListener("click", finishBoot);
-
-  let booted = false;
-  try {
-    booted = sessionStorage.getItem("xp-booted") === "1";
-  } catch (error) {}
-
-  if (booted) {
-    bootDone = true;
-    boot.hidden = true;
-    afterBoot();
-  } else {
-    startBoot();
-  }
+      if (!small.matches) open("about");
+    }, still ? 0 : 650);
+    setTimeout(showBalloon, still ? 0 : 1600);
+  });
 })();

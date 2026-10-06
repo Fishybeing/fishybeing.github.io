@@ -39,26 +39,74 @@ a {
   overflow: hidden;
 }
 
-.boot {
+.booting,
+.booting * {
+  cursor: progress !important;
+}
+
+.bootseq {
   position: fixed;
   inset: 0;
   z-index: 1000;
+  background: #000;
+  transition: opacity 0.5s ease;
+}
+
+.bootseq[hidden] {
+  display: none;
+}
+
+.bootseq.fade {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.post {
+  position: absolute;
+  inset: 0;
+  padding: 28px 32px;
+  background: #000;
+  color: #c8c8c8;
+  font: 15px/1.5 var(--mono);
+}
+
+.post[hidden],
+.boot[hidden],
+.welcome[hidden] {
+  display: none;
+}
+
+.post pre {
+  margin: 0;
+  font: inherit;
+  white-space: pre-wrap;
+}
+
+.post-logo {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  width: 64px;
+  height: 64px;
+}
+
+.post-hint {
+  position: absolute;
+  left: 32px;
+  bottom: 24px;
+  margin: 0;
+  color: #8a8a8a;
+}
+
+.boot {
+  position: absolute;
+  inset: 0;
   display: grid;
   place-content: center;
   justify-items: center;
-  gap: 34px;
-  background: #000;
+  gap: 30px;
   color: #fff;
-  cursor: progress;
-  transition: opacity 0.45s ease;
-}
-
-.boot.done {
-  opacity: 0;
-}
-
-.boot[hidden] {
-  display: none;
+  animation: fade-in 0.4s ease both;
 }
 
 .boot-logo {
@@ -84,47 +132,316 @@ a {
 }
 
 .boot-bar {
-  position: relative;
-  width: 160px;
+  width: 220px;
   height: 18px;
   padding: 2px;
-  overflow: hidden;
   border: 2px solid #b2b2b2;
   border-radius: 4px;
 }
 
 .boot-bar i {
-  position: absolute;
-  top: 2px;
-  left: -30px;
-  width: 9px;
-  height: 10px;
-  border-radius: 1px;
-  background: linear-gradient(180deg, #a7c3ff, #2b5cd8 50%, #1a3ea8);
-  animation: boot-slide 2s linear infinite;
+  display: block;
+  width: 0;
+  height: 100%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 8px, #000 8px 10px),
+    linear-gradient(180deg, #a7c3ff, #2b5cd8 50%, #1a3ea8);
+  transition: width 0.25s ease;
 }
 
-.boot-bar i:nth-child(2) {
-  animation-delay: 0.12s;
-}
-
-.boot-bar i:nth-child(3) {
-  animation-delay: 0.24s;
-}
-
-@keyframes boot-slide {
-  from {
-    left: -30px;
-  }
-  to {
-    left: 170px;
-  }
-}
-
-.boot-note {
+.boot-status {
   margin: 0;
+  min-height: 18px;
   font-size: 12px;
   color: #8f8f8f;
+}
+
+.welcome {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 78px 1fr 92px;
+  background: #5a7edc;
+  color: #fff;
+  cursor: default;
+  animation: fade-in 0.5s ease both;
+}
+
+.welcome-top,
+.welcome-bottom {
+  background: #00309c;
+}
+
+.welcome-top {
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, transparent, #f99736 30%, #fff 50%, #f99736 70%, transparent) 1;
+}
+
+.welcome-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 32px;
+  border-top: 2px solid;
+  border-image: linear-gradient(90deg, transparent, #f99736 30%, #fff 50%, #f99736 70%, transparent) 1;
+}
+
+.welcome-bottom p {
+  max-width: 330px;
+  margin: 0;
+  font-size: 12px;
+  text-align: right;
+  opacity: 0.85;
+}
+
+.welcome-mid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  background: radial-gradient(circle at 8% 12%, #9ab8f1 0, #5a7edc 42%);
+}
+
+.welcome-mid::before {
+  content: "";
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.8), transparent);
+}
+
+.welcome-left {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  padding-right: 48px;
+  text-align: right;
+}
+
+.welcome-left svg {
+  width: 84px;
+  height: 84px;
+}
+
+.welcome-left b {
+  font: italic 700 40px/1 var(--title);
+}
+
+.welcome-left p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.welcome-right {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding-left: 48px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 22px 8px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  opacity: 0.88;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.user:hover,
+.user:focus-visible,
+.user.active {
+  background: linear-gradient(90deg, #00309c, rgba(0, 48, 156, 0));
+  opacity: 1;
+  outline: none;
+}
+
+.user .avatar {
+  width: 64px;
+  height: 64px;
+  border-width: 3px;
+  transition: transform 0.15s ease;
+}
+
+.user:hover .avatar {
+  transform: scale(1.05);
+}
+
+.user .avatar svg {
+  width: 50px;
+  height: 50px;
+}
+
+.user b {
+  display: block;
+  font: 700 21px var(--title);
+}
+
+.user small {
+  display: block;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.welcome-msg {
+  margin: 0 0 0 92px;
+  font-size: 12px;
+}
+
+.turnoff {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.turnoff svg {
+  width: 26px;
+  height: 26px;
+}
+
+.turnoff:hover {
+  text-decoration: underline;
+}
+
+.welcome-word {
+  position: absolute;
+  inset: 78px 0 92px;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font: italic 700 clamp(44px, 8vw, 76px)/1 var(--title);
+  text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.3);
+  animation: fade-in 0.4s ease both;
+}
+
+.welcome-word[hidden] {
+  display: none;
+}
+
+.welcome.saying .welcome-left,
+.welcome.saying .welcome-right,
+.welcome.saying .welcome-mid::before {
+  visibility: hidden;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.intro .icons li {
+  animation: icon-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 55ms + 250ms);
+}
+
+@keyframes icon-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.85);
+  }
+}
+
+.intro .taskbar {
+  animation: bar-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes bar-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+.startmenu:not([hidden]) {
+  animation: menu-in 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.balloon:not([hidden]) {
+  animation: fade-in 0.3s ease;
+}
+
+.marquee {
+  position: absolute;
+  z-index: 5;
+  border: 1px solid #3168d5;
+  background: rgba(49, 104, 213, 0.22);
+  pointer-events: none;
+}
+
+.marquee[hidden] {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .welcome-mid {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 28px;
+  }
+
+  .welcome-mid::before {
+    display: none;
+  }
+
+  .welcome-left,
+  .welcome-right {
+    justify-items: center;
+    padding: 0 16px;
+    text-align: center;
+  }
+
+  .welcome-msg {
+    margin: 0;
+  }
+
+  .welcome-bottom {
+    padding: 0 16px;
+  }
+
+  .post {
+    font-size: 12px;
+    padding: 20px 16px;
+  }
+
+  .post-logo {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bootseq,
+  .boot,
+  .welcome,
+  .welcome-word,
+  .intro .icons li,
+  .intro .taskbar,
+  .startmenu:not([hidden]),
+  .balloon:not([hidden]) {
+    animation: none;
+    transition: none;
+  }
 }
 
 .desktop {

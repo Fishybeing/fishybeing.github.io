@@ -7,7 +7,7 @@
 <meta name="description" content="Matt's game dev portfolio: Haystack Hustle, Kitewick: Lantern Run and Nebula Client.">
 <meta name="theme-color" content="#245edb">
 <link rel="stylesheet" href="xp.css">
-<noscript><style>.boot{display:none}.window[hidden]{display:flex;position:relative;margin:16px auto}.desktop{position:relative;overflow:auto}</style></noscript>
+<noscript><style>.bootseq{display:none}.window[hidden]{display:flex;position:relative;margin:16px auto}.desktop{position:relative;overflow:auto}</style></noscript>
 </head>
 <body>
 
@@ -113,13 +113,42 @@
   </symbol>
 </svg>
 
-<div class="boot" id="boot" aria-hidden="true">
-  <div class="boot-logo">
-    <svg><use href="#i-fish"/></svg>
-    <span>fishybeing<sup>xp</sup></span>
+<div class="bootseq" id="bootseq">
+  <div class="post" id="post" aria-hidden="true" hidden>
+    <svg class="post-logo"><use href="#i-fish"/></svg>
+    <pre id="post-text"></pre>
+    <p class="post-hint">Click or press Esc to skip</p>
   </div>
-  <div class="boot-bar"><i></i><i></i><i></i></div>
-  <p class="boot-note">Matt makes games</p>
+  <div class="boot" id="boot" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+    <div class="boot-logo">
+      <svg><use href="#i-fish"/></svg>
+      <span>fishybeing<sup>xp</sup></span>
+    </div>
+    <div class="boot-bar"><i id="boot-fill"></i></div>
+    <p class="boot-status" id="boot-status">Starting up</p>
+  </div>
+  <div class="welcome" id="welcome" role="dialog" aria-label="Log on" hidden>
+    <div class="welcome-top"></div>
+    <div class="welcome-mid">
+      <div class="welcome-left">
+        <svg aria-hidden="true"><use href="#i-fish"/></svg>
+        <b>fishybeing</b>
+        <p>To begin, click your user name</p>
+      </div>
+      <div class="welcome-right">
+        <button class="user" id="login" type="button">
+          <span class="avatar"><svg aria-hidden="true"><use href="#i-fish"/></svg></span>
+          <span><b>Matt</b><small>Game developer</small></span>
+        </button>
+        <p class="welcome-msg" id="welcome-msg" hidden>Loading your personal settings...</p>
+      </div>
+    </div>
+    <div class="welcome-bottom">
+      <button class="turnoff" id="welcome-off" type="button"><svg aria-hidden="true"><use href="#i-power"/></svg>Turn off fishybeing</button>
+      <p>Double-click icons on the desktop, or click the things sitting on the hill.</p>
+    </div>
+    <p class="welcome-word" id="welcome-word" aria-hidden="true" hidden>welcome</p>
+  </div>
 </div>
 
 <div class="desktop" id="desktop">
@@ -451,9 +480,8 @@ things sitting on the hill:
   <button class="xp-btn" id="poweron">Turn it back on</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="wallpaper.js"></script>
 <script src="desktop.js"></script>
 <script src="status.js"></script>
+<script src="boot.js"></script>
 </body>
 </html>

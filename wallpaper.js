@@ -2,9 +2,17 @@
   const desktop = document.getElementById("desktop");
   const canvas = document.getElementById("wallpaper");
   const tip = document.getElementById("tip");
-  if (!desktop || !canvas) return;
+  function ready() {
+    window.dispatchEvent(new Event("xp:wallpaper-ready"));
+  }
+
+  if (!desktop || !canvas) {
+    ready();
+    return;
+  }
   if (typeof THREE === "undefined") {
     desktop.classList.add("no-gl");
+    ready();
     return;
   }
 
@@ -13,6 +21,7 @@
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   } catch (error) {
     desktop.classList.add("no-gl");
+    ready();
     return;
   }
 
@@ -335,7 +344,8 @@
     const target = pick();
     if (target) {
       setHover(null, 0, 0);
-      window.dispatchEvent(new CustomEvent("xp:open", { detail: target.userData.id }));
+      const area = desktop.getBoundingClientRect();
+      window.dispatchEvent(new CustomEvent("xp:open", { detail: { id: target.userData.id, x: event.clientX - area.left, y: event.clientY - area.top } }));
     }
   });
 
@@ -346,6 +356,21 @@
   });
 
   let cameraZ = 26;
+  let introStart = -1;
+  let introDistance = 0;
+
+  window.addEventListener("xp:login", function () {
+    if (still) return;
+    introStart = performance.now() / 1000;
+    introDistance = 9;
+  });
+
+  function introOffset(time) {
+    if (introStart < 0) return 0;
+    const t = Math.min(1, Math.max(0, (time - introStart) / 2.6));
+    if (t >= 1) introStart = -1;
+    return introDistance * Math.pow(1 - t, 3);
+  }
 
   function resize() {
     const width = desktop.clientWidth;
@@ -361,7 +386,8 @@
   }
 
   function placeCamera(time) {
-    camera.position.set(lookX * 2.2 + Math.sin(time * 0.07) * 0.6, 5.5 - lookY * 1.2, cameraZ);
+    const intro = introOffset(time);
+    camera.position.set(lookX * 2.2 + Math.sin(time * 0.07) * 0.6, 5.5 - lookY * 1.2 + intro * 0.35, cameraZ + intro);
     camera.lookAt(lookAtX, 3.2, -8);
   }
 
@@ -433,4 +459,8 @@
   resize();
   if (still) animate(0, 0);
   updateRunning();
+  requestAnimationFrame(function () {
+    renderer.render(scene, camera);
+    requestAnimationFrame(ready);
+  });
 })();
