@@ -428,6 +428,10 @@ a {
   font-size: 13px;
 }
 
+code {
+  font: 12px var(--mono);
+}
+
 fieldset {
   margin: 0;
   padding: 8px 10px 10px;
