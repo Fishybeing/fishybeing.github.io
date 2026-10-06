@@ -374,6 +374,14 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/886" target="_blank" rel="noopener">View #886</a></div>
       </fieldset>
       <fieldset>
+        <legend>#923 · Correct the barycentric entry in TechnicalDebt</legend>
+        <ul class="notes">
+          <li>The known-gaps list said barycentric coordinates were skipped entirely. They're implemented end to end; only GPUs without the barycentric extension fall back.</li>
+          <li>The entry now describes that fallback and links the code behind it. Found while running cppcheck over the whole project.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/923" target="_blank" rel="noopener">View #923</a></div>
+      </fieldset>
+      <fieldset>
         <legend>How they were tested</legend>
         <ul class="notes">
           <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the 181 non-GPU tests, all passing.</li>
