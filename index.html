@@ -116,7 +116,7 @@
     <li><button class="icon" data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span>Haystack Hustle</span></button></li>
     <li><button class="icon" data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span>Kitewick</span></button></li>
     <li><button class="icon" data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span>Nebula Client</span></button></li>
-    <li><button class="icon" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>AnyPS5 PR</span></button></li>
+    <li><button class="icon" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>AnyPS5 PRs</span></button></li>
     <li><button class="icon" data-open="about"><svg aria-hidden="true"><use href="#i-notepad"/></svg><span>About Me</span></button></li>
     <li><button class="icon" data-open="toolbox"><svg aria-hidden="true"><use href="#i-toolbox"/></svg><span>Toolbox</span></button></li>
     <li><button class="icon shortcut" data-href="https://github.com/Fishybeing"><svg aria-hidden="true"><use href="#i-globe"/></svg><svg class="arrow" aria-hidden="true"><use href="#i-shortcut"/></svg><span>GitHub</span></button></li>
@@ -259,18 +259,32 @@ things sitting on the hill:
   <section class="window" id="win-anyps5" data-icon="i-merge" style="--w: 560px" role="dialog" aria-labelledby="t-anyps5" hidden>
     <header class="titlebar">
       <svg aria-hidden="true"><use href="#i-merge"/></svg>
-      <h2 id="t-anyps5">AnyPS5 contribution</h2>
+      <h2 id="t-anyps5">AnyPS5 contributions</h2>
       <div class="controls"><button class="min" aria-label="Minimize"></button><button class="max" aria-label="Maximize"></button><button class="close" aria-label="Close"></button></div>
     </header>
     <nav class="menubar" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Help</span></nav>
     <div class="window-body">
-      <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. My first pull request to it cleans up the Windows build.</p>
+      <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. I've been sending it small fixes found by building it on Windows with stricter compiler warnings.</p>
       <fieldset>
-        <legend>The change</legend>
+        <legend>#872 · Guard NOMINMAX on Windows</legend>
         <ul class="notes">
           <li>Four Windows sources redefined <code>NOMINMAX</code>, so every MinGW build printed the same warning four times.</li>
           <li>Each define now uses the <code>#ifndef</code> guard the rest of the project already uses. The build has no warnings left in project code.</li>
-          <li>Built with GCC 15.2 on Windows 11 and ran the 181 non-GPU tests, all passing.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/872" target="_blank" rel="noopener">View #872</a></div>
+      </fieldset>
+      <fieldset>
+        <legend>#883 · Fix the MemoryPool.hpp include guard</legend>
+        <ul class="notes">
+          <li>The header checked <code>..._LIBKERNEL_...</code> but defined <code>..._LINKERNEL_...</code>, so its include guard never worked.</li>
+          <li>Found with <code>-Wall -Wextra</code> across all 905 project sources. One-letter fix.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/883" target="_blank" rel="noopener">View #883</a></div>
+      </fieldset>
+      <fieldset>
+        <legend>How they were tested</legend>
+        <ul class="notes">
+          <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the 181 non-GPU tests, all passing.</li>
         </ul>
       </fieldset>
       <fieldset>
@@ -278,11 +292,11 @@ things sitting on the hill:
         <ul class="chips"><li>C++20</li><li>CMake</li><li>Ninja</li><li>MinGW-w64 GCC 15</li></ul>
       </fieldset>
       <div class="actions">
-        <a class="xp-btn default" href="https://github.com/boykopovar/AnyPS5/pull/872" target="_blank" rel="noopener">View pull request #872</a>
+        <a class="xp-btn default" href="https://github.com/boykopovar/AnyPS5/pulls?q=is%3Apr+author%3AFishybeing" target="_blank" rel="noopener">All my pull requests</a>
         <a class="xp-btn" href="https://github.com/boykopovar/AnyPS5" target="_blank" rel="noopener">Project on GitHub</a>
       </div>
     </div>
-    <footer class="statusbar"><span>Pull request #872</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
+    <footer class="statusbar"><span>2 pull requests</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
   </section>
 
   <section class="window" id="win-toolbox" data-icon="i-toolbox" style="--w: 540px" role="dialog" aria-labelledby="t-toolbox" hidden>
@@ -346,7 +360,7 @@ things sitting on the hill:
       <li><button data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span><b>Haystack Hustle</b><small>3D haystack-digging simulator</small></span></button></li>
       <li><button data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span><b>Kitewick: Lantern Run</b><small>Papercraft platformer</small></span></button></li>
       <li><button data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span><b>Nebula Client</b><small>Minecraft utility mod</small></span></button></li>
-      <li><button data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span><b>AnyPS5 contribution</b><small>Open-source pull request</small></span></button></li>
+      <li><button data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span><b>AnyPS5 contributions</b><small>Open-source pull requests</small></span></button></li>
       <li class="sep" role="separator"></li>
       <li><a href="https://fishybeing.github.io/haystack-hustle/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span>Play Haystack Hustle</span></a></li>
     </ul>

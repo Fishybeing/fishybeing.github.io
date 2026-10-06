@@ -537,6 +537,10 @@ legend {
   gap: 8px;
 }
 
+fieldset .actions {
+  margin-top: 8px;
+}
+
 .xp-btn {
   display: inline-flex;
   align-items: center;
