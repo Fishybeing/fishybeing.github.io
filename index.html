@@ -278,7 +278,7 @@ things sitting on the hill:
     </header>
     <nav class="menubar" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Help</span></nav>
     <div class="window-body">
-      <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. I've been sending it small fixes found by building it on Windows with stricter compiler warnings.</p>
+      <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. I've been sending it small fixes found while building it on Windows and digging through its progress map.</p>
       <fieldset>
         <legend>#872 · Guard NOMINMAX on Windows</legend>
         <ul class="notes">
@@ -296,6 +296,14 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/883" target="_blank" rel="noopener">View #883</a></div>
       </fieldset>
       <fieldset>
+        <legend>#886 · Count sceHttpParseStatusLine as implemented</legend>
+        <ul class="notes">
+          <li>The progress map listed this HTTP parser as missing, even though it was written and tested.</li>
+          <li>A range-limit check used the "not implemented" stub, which the progress tool counts as missing. It now throws like its sibling parser, so libraries go from 2449 to 2450.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/886" target="_blank" rel="noopener">View #886</a></div>
+      </fieldset>
+      <fieldset>
         <legend>How they were tested</legend>
         <ul class="notes">
           <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the 181 non-GPU tests, all passing.</li>
@@ -310,7 +318,7 @@ things sitting on the hill:
         <a class="xp-btn" href="https://github.com/boykopovar/AnyPS5" target="_blank" rel="noopener">Project on GitHub</a>
       </div>
     </div>
-    <footer class="statusbar"><span>2 pull requests</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
+    <footer class="statusbar"><span>3 pull requests</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
   </section>
 
   <section class="window" id="win-status" data-icon="i-defrag" style="--w: 640px" role="dialog" aria-labelledby="t-status" hidden>
