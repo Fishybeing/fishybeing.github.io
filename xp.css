@@ -646,6 +646,150 @@ fieldset .actions {
   vertical-align: -4px;
 }
 
+.tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 1px;
+  margin-bottom: -13px;
+}
+
+.tabs button {
+  padding: 3px 12px 2px;
+  border: 1px solid #919b9c;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, #fff, #ecebe6);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.tabs button[aria-selected="true"] {
+  padding-bottom: 4px;
+  border-top: 2px solid #e68b2c;
+  background: #fcfcfe;
+}
+
+.tab-panel {
+  display: grid;
+  gap: 10px;
+  padding: 12px 10px 10px;
+  border: 1px solid #919b9c;
+  background: #fcfcfe;
+}
+
+.status-line {
+  margin: 0;
+  font-weight: 700;
+}
+
+.xp-progress {
+  height: 16px;
+  padding: 2px;
+  border: 1px solid #686868;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.xp-progress div {
+  width: 0;
+  height: 100%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 8px, #fff 8px 10px),
+    linear-gradient(180deg, #acedad, #7be47d 14%, #4cda50 28%, #2ed330 42%, #42d845 57%, #76e275 71%, #8fe791 85%, #fff);
+  transition: width 0.9s ease;
+}
+
+.status-map {
+  display: block;
+  max-width: 100%;
+  border: 1px solid;
+  border-color: #7f7f7f #fff #fff #7f7f7f;
+  cursor: crosshair;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #555;
+}
+
+.swatch.done {
+  background: #2f5fd0;
+}
+
+.swatch.todo {
+  background: #e23b2e;
+}
+
+.swatch.free {
+  background: #fff;
+}
+
+.listwrap {
+  max-height: 190px;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #7f9db9;
+}
+
+.listwrap thead th {
+  position: sticky;
+  top: 0;
+}
+
+.listwrap td:nth-child(2),
+.listwrap td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.listwrap td:last-child {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.meter {
+  display: inline-block;
+  width: 60px;
+  height: 8px;
+  border: 1px solid #7f9db9;
+  background: #fff;
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  background: #2f5fd0;
+}
+
+.footnote {
+  margin: 0;
+  font-size: 11px;
+  color: #555;
+}
+
+.xp-btn:disabled {
+  color: #a0a0a0;
+  cursor: default;
+}
+
 .tip {
   position: absolute;
   z-index: 900;
