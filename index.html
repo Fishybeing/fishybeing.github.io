@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matt Makes Games</title>
-<meta name="description" content="Matt's game dev portfolio: Haystack Hustle, Kitewick: Lantern Run, Nebula Client and a CMS 2018 co-op mod.">
+<meta name="description" content="Matt's game dev portfolio: Haystack Hustle, Nebula Client and a CMS 2018 co-op mod.">
 <meta name="theme-color" content="#245edb">
 <link rel="stylesheet" href="xp.css">
 <link rel="stylesheet" href="apps.css">
@@ -16,7 +16,6 @@
   <defs>
     <linearGradient id="g-fish" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a"/><stop offset=".55" stop-color="#ff8a2a"/><stop offset="1" stop-color="#d4501a"/></linearGradient>
     <linearGradient id="g-hay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset=".6" stop-color="#e3a92f"/><stop offset="1" stop-color="#a86d12"/></linearGradient>
-    <radialGradient id="g-lantern" cx=".45" cy=".4" r=".6"><stop offset="0" stop-color="#fff1c2"/><stop offset=".45" stop-color="#ffb347"/><stop offset="1" stop-color="#e0651c"/></radialGradient>
     <linearGradient id="g-box" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a6b"/><stop offset="1" stop-color="#b8231a"/></linearGradient>
     <radialGradient id="g-globe" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#bfe3ff"/><stop offset=".5" stop-color="#3b8de0"/><stop offset="1" stop-color="#1a4f9c"/></radialGradient>
     <linearGradient id="g-bin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fb3c8"/><stop offset=".5" stop-color="#e8eef5"/><stop offset="1" stop-color="#8197ad"/></linearGradient>
@@ -34,14 +33,6 @@
     <path d="M14 38c1-8 4-15 8-20M22 39c0-9 2-17 5-22M31 38c-1-7-2-13-4-18M38 38c-2-6-4-11-8-15" fill="none" stroke="#b77d1c" stroke-width="1.5" stroke-linecap="round"/>
     <path d="M29 27l13-13" stroke="#5d6b78" stroke-width="2.8" stroke-linecap="round"/>
     <path d="M29 27l13-13" stroke="#eef3f7" stroke-width="1.1" stroke-linecap="round"/>
-  </symbol>
-  <symbol id="i-lantern" viewBox="0 0 48 48">
-    <rect x="17" y="4" width="14" height="4" rx="1.5" fill="#5a3a22"/>
-    <ellipse cx="24" cy="19" rx="11" ry="12" fill="url(#g-lantern)" stroke="#9a3f0e" stroke-width="2"/>
-    <path d="M17 12c-2 5-2 9 0 14M31 12c2 5 2 9 0 14M24 7v24" fill="none" stroke="#d0661f" stroke-width="1.2"/>
-    <rect x="18" y="30" width="12" height="3.5" rx="1.5" fill="#5a3a22"/>
-    <path d="M24 34l-3 3.5 3 3 3-3z" fill="#d8452b"/>
-    <path d="M24 41l-3 3 3 3 3-3z" fill="#fff1d6" stroke="#d8452b" stroke-width=".8"/>
   </symbol>
   <symbol id="i-block" viewBox="0 0 48 48">
     <path d="M24 5l18 9-18 9-18-9z" fill="#79b347" stroke="#2f5a17" stroke-width="1.6" stroke-linejoin="round"/>
@@ -323,7 +314,6 @@
     <li><button class="icon" data-open="computer"><svg aria-hidden="true"><use href="#i-computer"/></svg><span>My Computer</span></button></li>
     <li><button class="icon" data-open="ie"><svg aria-hidden="true"><use href="#i-ie"/></svg><span>Fishnet Explorer</span></button></li>
     <li><button class="icon" data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span>Haystack Hustle</span></button></li>
-    <li><button class="icon" data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span>Kitewick</span></button></li>
     <li><button class="icon" data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span>Nebula Client</span></button></li>
     <li><button class="icon" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-wrench"/></svg><span>CMS 2018 Co-op</span></button></li>
     <li><button class="icon" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>AnyPS5 PRs</span></button></li>
@@ -349,15 +339,10 @@
 
 I make browser games for CrazyGames and client
 mods for Minecraft. Here are my projects, from a
-3D haystack-digging simulator to a papercraft
-platformer.
+3D haystack-digging simulator to a Minecraft
+client.
 
-Double-click an icon on the left, or click the
-things sitting on the hill:
-
-  the haystack     Haystack Hustle
-  the lantern      Kitewick: Lantern Run
-  the grass block  Nebula Client
+Double-click an icon on the left.
 </pre>
     </div>
   </section>
@@ -402,42 +387,6 @@ things sitting on the hill:
     <footer class="statusbar"><span>v2026.10.05</span><span>Web · CrazyGames · three.js r128</span></footer>
   </section>
 
-  <section class="window" id="win-kitewick" data-icon="i-lantern" style="--w: 640px" role="dialog" aria-labelledby="t-kitewick" hidden>
-    <header class="titlebar">
-      <svg aria-hidden="true"><use href="#i-lantern"/></svg>
-      <h2 id="t-kitewick">Kitewick: Lantern Run</h2>
-      <div class="controls"><button class="min" aria-label="Minimize"></button><button class="max" aria-label="Maximize"></button><button class="close" aria-label="Close"></button></div>
-    </header>
-    <nav class="menubar" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Help</span></nav>
-    <div class="window-body">
-      <div class="shot"><img src="img/kitewick.jpg" alt="Kitewick: a small paper lantern on a dusk-lit hill under a big moon, with glowing embers floating ahead" width="1200" height="675" loading="lazy"></div>
-      <p class="pitch">A papercraft platformer. Guide Wick, a tiny paper lantern with a kite tail, across floating islands to relight Hollowsky's Beacons. Every fall leaves an Echo Wisp that helps you on the next try.</p>
-      <fieldset>
-        <legend>Stats</legend>
-        <div class="stats">
-          <div><b>20</b><span>courses across 4 worlds</span></div>
-          <div><b>60</b><span>paper cranes to collect</span></div>
-          <div><b>3</b><span>original mechanics</span></div>
-          <div><b>0</b><span>dependencies or build steps</span></div>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>Under the hood</legend>
-        <ul class="notes">
-          <li>Echo Wisps turn failure into help: a missed jump leaves a one-use boost at the top of its arc.</li>
-          <li>Sun/Moon Phase swaps which blocks are solid, and refuses a swap that would trap you.</li>
-          <li>Courses are assembled from hand-made chunks, plus a Daily Gauntlet and an Endless Drift mode.</li>
-          <li>All art is drawn in code and all audio is synthesized at runtime.</li>
-        </ul>
-      </fieldset>
-      <fieldset>
-        <legend>Built with</legend>
-        <ul class="chips"><li>JavaScript</li><li>Canvas 2D</li><li>WebAudio</li><li>CrazyGames SDK v3</li></ul>
-      </fieldset>
-      <p class="infobar"><svg aria-hidden="true"><use href="#i-info"/></svg>Not released yet.</p>
-    </div>
-    <footer class="statusbar"><span>In development</span><span>Web · CrazyGames · HTML5 canvas</span></footer>
-  </section>
 
   <section class="window" id="win-nebula" data-icon="i-block" style="--w: 560px" role="dialog" aria-labelledby="t-nebula" hidden>
     <header class="titlebar">
@@ -833,10 +782,9 @@ things sitting on the hill:
         <h4>Hard Disk Drives</h4>
         <div class="ex-items">
           <button type="button" data-open="haystack"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>Haystack Hustle (C:)<small>Browser game</small></span></button>
-          <button type="button" data-open="kitewick"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>Kitewick (D:)<small>In development</small></span></button>
-          <button type="button" data-open="nebula"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>Nebula Client (E:)<small>Minecraft mod</small></span></button>
-          <button type="button" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>CMS 2018 Co-op (F:)<small>Multiplayer mod</small></span></button>
-          <button type="button" data-open="anyps5"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>AnyPS5 (G:)<small>Open-source pull requests</small></span></button>
+          <button type="button" data-open="nebula"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>Nebula Client (D:)<small>Minecraft mod</small></span></button>
+          <button type="button" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>CMS 2018 Co-op (E:)<small>Multiplayer mod</small></span></button>
+          <button type="button" data-open="anyps5"><svg aria-hidden="true"><use href="#i-drive"/></svg><span>AnyPS5 (F:)<small>Open-source pull requests</small></span></button>
         </div>
         <h4>Programs</h4>
         <div class="ex-items">
@@ -864,6 +812,7 @@ things sitting on the hill:
         <div class="monitor" aria-hidden="true"><div class="monitor-screen" id="display-screen"></div></div>
         <label class="field-label" for="display-list">Background:</label>
         <div class="display-list" id="display-list" role="listbox" aria-label="Background">
+          <button type="button" role="option" data-wallpaper="none">(None)</button>
           <button type="button" role="option" data-wallpaper="hill3d">Fishy Hill (3D)</button>
           <button type="button" role="option" data-wallpaper="hill">Fishy Hill</button>
           <button type="button" role="option" data-wallpaper="azure">Azure</button>
@@ -910,7 +859,7 @@ things sitting on the hill:
   <div class="balloon" id="balloon" role="status" hidden>
     <button class="balloon-x" aria-label="Close">×</button>
     <p class="balloon-title"><svg aria-hidden="true"><use href="#i-info"/></svg>Welcome to Matt's desktop</p>
-    <p>Double-click an icon, or click the haystack, the lantern or the grass block on the hill.</p>
+    <p>Double-click an icon to open a project.</p>
   </div>
 </div>
 
@@ -922,7 +871,6 @@ things sitting on the hill:
       <li><a class="pinned" href="https://github.com/Fishybeing" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-globe"/></svg><span><b>GitHub</b><small>Fishybeing</small></span></a></li>
       <li class="sep" role="separator"></li>
       <li><button type="button" data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg><span>Haystack Hustle</span></button></li>
-      <li><button type="button" data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg><span>Kitewick: Lantern Run</span></button></li>
       <li><button type="button" data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg><span>Nebula Client</span></button></li>
       <li><button type="button" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-wrench"/></svg><span>CMS 2018 Co-op</span></button></li>
       <li><button type="button" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg><span>AnyPS5 contributions</span></button></li>
@@ -944,7 +892,6 @@ things sitting on the hill:
     <div class="allprogs" id="allprogs" hidden>
       <h3>Projects</h3>
       <button type="button" data-open="haystack"><svg aria-hidden="true"><use href="#i-haystack"/></svg>Haystack Hustle</button>
-      <button type="button" data-open="kitewick"><svg aria-hidden="true"><use href="#i-lantern"/></svg>Kitewick: Lantern Run</button>
       <button type="button" data-open="nebula"><svg aria-hidden="true"><use href="#i-block"/></svg>Nebula Client</button>
       <button type="button" data-open="cmscoop"><svg aria-hidden="true"><use href="#i-wrench"/></svg>CMS 2018 Co-op</button>
       <button type="button" data-open="anyps5"><svg aria-hidden="true"><use href="#i-merge"/></svg>AnyPS5 contributions</button>

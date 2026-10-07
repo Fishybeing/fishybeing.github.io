@@ -204,33 +204,6 @@
 
   hayGroup.add(hitProxy(new THREE.CylinderGeometry(2.7, 2.9, 3.2, 12).translate(0, 1.6, 0), "haystack", "Haystack Hustle"));
 
-  const lantern = new THREE.Group();
-  const lanternBase = new THREE.Vector3(-1.5, hill(-1.5, -5) + 5.6, -5);
-  lantern.position.copy(lanternBase);
-  const paper = new THREE.Mesh(new THREE.SphereGeometry(0.62, 12, 10), lambert(0xffb35c, { emissive: 0xff7a1a, emissiveIntensity: 0.9 }));
-  paper.scale.set(1, 1.18, 1);
-  paper.castShadow = true;
-  lantern.add(paper);
-  const capMaterial = lambert(0x5a3a22);
-  const capTop = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.3, 0.14, 10), capMaterial);
-  capTop.position.y = 0.72;
-  const capBottom = capTop.clone();
-  capBottom.position.y = -0.72;
-  lantern.add(capTop, capBottom);
-  const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(false), color: 0xffb060, transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending }));
-  halo.scale.setScalar(3.4);
-  lantern.add(halo);
-  const lanternLight = new THREE.PointLight(0xffa04a, 0.9, 9, 2);
-  lantern.add(lanternLight);
-  const tail = [];
-  for (let i = 0; i < 7; i++) {
-    const piece = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 0.22), lambert(i % 2 ? 0xfff1d6 : 0xd8452b, { side: THREE.DoubleSide }));
-    piece.rotation.z = Math.PI / 4;
-    lantern.add(piece);
-    tail.push(piece);
-  }
-  lantern.add(hitProxy(new THREE.SphereGeometry(1.5, 8, 6), "kitewick", "Kitewick: Lantern Run"));
-  scene.add(lantern);
 
   function pixelTexture(paintPixel) {
     const paint = document.createElement("canvas");
@@ -401,13 +374,6 @@
       if (cloud.position.x > 95) cloud.position.x = -95;
     });
 
-    lantern.position.y = lanternBase.y + Math.sin(time * 1.3) * 0.3;
-    lantern.rotation.z = Math.sin(time * 0.9) * 0.08;
-    lanternLight.intensity = 0.85 + Math.sin(time * 7.3) * 0.06;
-    tail.forEach(function (piece, index) {
-      piece.position.set(Math.sin(time * 2.2 - index * 0.6) * 0.07 * (index + 1), -0.95 - index * 0.3, Math.cos(time * 1.7 - index * 0.5) * 0.04 * index);
-      piece.rotation.y = Math.sin(time * 1.9 - index) * 0.6;
-    });
 
     sparkle.scale.setScalar(0.3 + Math.max(0, Math.sin(time * 1.6)) ** 6 * 1.2);
 
@@ -419,7 +385,6 @@
       object.scale.setScalar(object.scale.x + (want - object.scale.x) * Math.min(1, dt * 10));
     };
     grow(hayGroup, hovered && hovered.userData.id === "haystack");
-    grow(lantern, hovered && hovered.userData.id === "kitewick");
     grow(blockGroup, hovered && hovered.userData.id === "nebula");
   }
 

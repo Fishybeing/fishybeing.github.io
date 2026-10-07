@@ -16,7 +16,7 @@
     three: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
     threeBytes: 603445,
     wallpaper: "wallpaper.js",
-    images: ["img/haystack.jpg", "img/kitewick.jpg"]
+    images: ["img/haystack.jpg"]
   };
   const weights = { three: 0.6, scene: 0.25, images: 0.15 };
   const progress = { three: 0, scene: 0, images: 0 };
@@ -31,9 +31,8 @@
     "",
     "Detecting drives...",
     "  Primary master    Haystack Hustle ......... OK",
-    "  Primary slave     Kitewick: Lantern Run ... OK",
-    "  Secondary master  Nebula Client ........... OK",
-    "  Secondary slave   AnyPS5 pull requests .... 3 found",
+    "  Primary slave     Nebula Client ........... OK",
+    "  Secondary master  AnyPS5 pull requests .... 3 found",
     "",
     "Loading three.js from cdnjs..."
   ];

@@ -233,10 +233,16 @@ body.resizing iframe {
   }
 }
 
+.desktop[data-wallpaper="none"] #wallpaper,
 .desktop[data-wallpaper="hill"] #wallpaper,
 .desktop[data-wallpaper="azure"] #wallpaper,
 .desktop[data-wallpaper="night"] #wallpaper {
   display: none;
+}
+
+.desktop[data-wallpaper="none"],
+.monitor-screen[data-wallpaper="none"] {
+  background: #004e98;
 }
 
 .desktop[data-wallpaper="azure"],

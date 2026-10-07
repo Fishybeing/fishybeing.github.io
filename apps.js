@@ -184,16 +184,16 @@
     if (startMenu.hidden) showAllPrograms(false);
   }).observe(startMenu, { attributes: true, attributeFilter: ["hidden"] });
 
-  const wallpapers = ["hill3d", "hill", "azure", "night"];
+  const wallpapers = ["none", "hill3d", "hill", "azure", "night"];
 
   function setWallpaper(name) {
-    const chosen = wallpapers.indexOf(name) >= 0 ? name : "hill3d";
+    const chosen = wallpapers.indexOf(name) >= 0 ? name : "none";
     desktop.dataset.wallpaper = chosen;
-    storage.set("xp-wallpaper", chosen);
+    storage.set("xp-background", chosen);
     window.dispatchEvent(new Event("xp:wallpaper"));
   }
 
-  setWallpaper(storage.get("xp-wallpaper") || "hill3d");
+  setWallpaper(storage.get("xp-background") || "none");
 
   (function displayProperties() {
     const screen = document.getElementById("display-screen");
@@ -440,7 +440,7 @@
     pong: "pong", winmine: "mine", minesweeper: "mine", mine: "mine",
     mspaint: "paint", paint: "paint", notepad: "notepad", cmd: "cmd", command: "cmd",
     explorer: "computer", computer: "computer", control: "display", desk: "display", "desk.cpl": "display",
-    about: "about", toolbox: "toolbox", haystack: "haystack", kitewick: "kitewick", nebula: "nebula",
+    about: "about", toolbox: "toolbox", haystack: "haystack", nebula: "nebula",
     anyps5: "anyps5", progress: "status", recycle: "bin", run: "run"
   };
 
@@ -1329,7 +1329,6 @@
       " Directory of C:\\Documents and Settings\\Matt\\Desktop",
       "",
       "<DIR>          Haystack Hustle",
-      "<DIR>          Kitewick",
       "<DIR>          Nebula Client",
       "<DIR>          CMS 2018 Co-op",
       "<DIR>          AnyPS5",
@@ -1340,7 +1339,7 @@
       "        16,384 mspaint.exe",
       "         2,048 notepad.exe",
       "               6 File(s)     44,032 bytes",
-      "               5 Dir(s)"
+      "               4 Dir(s)"
     ].join("\n");
 
     async function ping(argument) {
