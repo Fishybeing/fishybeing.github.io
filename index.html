@@ -497,7 +497,7 @@ Double-click an icon on the left.
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/923" target="_blank" rel="noopener">View #923</a></div>
       </fieldset>
       <fieldset>
-        <legend>#1115 · Guard NOMINMAX in Rtld.cpp <span class="open">open</span></legend>
+        <legend>#1115 · Guard NOMINMAX in Rtld.cpp <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>A file added to the project after #872 brought the same <code>NOMINMAX</code> warning back. Same two-line guard.</li>
         </ul>
@@ -555,7 +555,11 @@ Double-click an icon on the left.
         <fieldset>
           <legend>Progress map</legend>
           <canvas class="status-map" id="status-map" role="img" aria-label="One block per function: blue is implemented, red is missing"></canvas>
-          <div class="legend"><span><i class="swatch done"></i>Implemented</span><span><i class="swatch todo"></i>Missing</span><span><i class="swatch free"></i>Not analyzed yet</span></div>
+          <div class="legend"><span><i class="swatch done"></i>Implemented</span><span><i class="swatch todo"></i>Missing</span><span><i class="swatch helped"></i>We helped (merged)</span><span><i class="swatch helped-open"></i>We helped (in review)</span><span><i class="swatch free"></i>Not analyzed yet</span></div>
+        </fieldset>
+        <fieldset>
+          <legend>What we helped with</legend>
+          <ul class="helped-list" id="status-helped"></ul>
         </fieldset>
         <fieldset>
           <legend id="status-groups">Libraries</legend>

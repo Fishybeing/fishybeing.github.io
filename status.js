@@ -15,7 +15,78 @@
   const analyze = document.getElementById("status-analyze");
   const tabs = win.querySelectorAll("[role=tab]");
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const colors = { done: ["#2f5fd0", "#4677e0"], todo: "#e23b2e", free: "#ffffff", gap: "#d4d0c8" };
+  const colors = { done: ["#2f5fd0", "#4677e0"], todo: "#e23b2e", free: "#ffffff", gap: "#d4d0c8", helped: "#f0a020", helpedOpen: "#f8d98c" };
+  const helpedList = document.getElementById("status-helped");
+
+  function libc(names) {
+    return names.map(function (name) {
+      return name + "_nid_postfix";
+    });
+  }
+
+  const ourPrs = [
+    { number: 886, state: "merged", title: "Count sceHttpParseStatusLine as implemented", functions: ["sceHttpParseStatusLine"] },
+    { number: 1116, state: "open", title: "Read guest wide strings as 16-bit units", functions: libc(["wcslen", "wcscpy", "wcsncpy", "wcscmp", "wcsncmp", "wcschr", "wcsrchr", "wcsstr", "wcspbrk", "wcsspn", "wmemchr", "wmemcmp", "wmemcpy", "wmemmove", "wmemset"]) },
+    { number: 1126, state: "open", title: "Parse and collate guest wide strings as 16-bit units", functions: libc(["wcscoll", "wcsxfrm", "wcstol", "wcstoll", "wcstoul", "wcstoull", "wcstof", "wcstod", "wcstold"]) },
+    { number: 872, state: "merged", title: "Guard NOMINMAX before including windows.h", functions: [] },
+    { number: 883, state: "merged", title: "Fix the MemoryPool.hpp include guard", functions: [] },
+    { number: 923, state: "merged", title: "Correct the barycentric entry in TechnicalDebt", functions: [] },
+    { number: 1115, state: "merged", title: "Guard NOMINMAX in Rtld.cpp", functions: [] }
+  ];
+
+  const helpedBy = {};
+  ourPrs.forEach(function (pr) {
+    pr.functions.forEach(function (name) {
+      helpedBy[name] = pr;
+    });
+  });
+
+  function fillHelped() {
+    helpedList.textContent = "";
+    ourPrs.forEach(function (pr) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = "https://github.com/boykopovar/AnyPS5/pull/" + pr.number;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.textContent = "#" + pr.number;
+      const what = document.createElement("span");
+      what.className = "what";
+      what.textContent = pr.title;
+      const count = document.createElement("span");
+      count.className = "count";
+      count.textContent = pr.functions.length ? pr.functions.length + (pr.functions.length === 1 ? " function" : " functions") : "build/docs";
+      const badge = document.createElement("span");
+      badge.className = pr.state === "merged" ? "merged" : "open";
+      badge.textContent = pr.state === "merged" ? "merged" : "in review";
+      item.append(link, what, count, badge);
+      helpedList.appendChild(item);
+    });
+  }
+
+  function loadPrStates() {
+    fetch("https://api.github.com/search/issues?q=repo:boykopovar/AnyPS5+author:Fishybeing+type:pr&per_page=50")
+      .then(function (response) {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+      })
+      .then(function (json) {
+        json.items.forEach(function (issue) {
+          const pr = ourPrs.find(function (entry) {
+            return entry.number === issue.number;
+          });
+          if (!pr) return;
+          if (issue.pull_request && issue.pull_request.merged_at) pr.state = "merged";
+          else if (issue.state === "open") pr.state = "open";
+        });
+        fillHelped();
+        if (cells.length) draw();
+      })
+      .catch(function () {});
+  }
+
+  fillHelped();
+  loadPrStates();
 
   let data = null;
   let set = "libraries";
@@ -64,10 +135,10 @@
     cells = [];
     info.groups.forEach(function (group, index) {
       group.done_names.forEach(function (name) {
-        cells.push({ group: group.label, name: name, done: true, shade: index % 2 });
+        cells.push({ group: group.label, name: name, done: true, shade: index % 2, pr: libraries ? helpedBy[name] : null });
       });
       group.todo_names.forEach(function (name) {
-        cells.push({ group: group.label, name: name, done: false, shade: index % 2 });
+        cells.push({ group: group.label, name: name, done: false, shade: index % 2, pr: libraries ? helpedBy[name] : null });
       });
     });
 
@@ -142,6 +213,7 @@
       const x = (index % grid.columns) * size;
       const y = Math.floor(index / grid.columns) * size;
       if (index >= revealed) g.fillStyle = colors.free;
+      else if (cell.pr) g.fillStyle = cell.pr.state === "merged" ? colors.helped : colors.helpedOpen;
       else g.fillStyle = cell.done ? colors.done[cell.shade] : colors.todo;
       g.fillRect(x, y, size - 1, size - 1);
     });
@@ -162,7 +234,8 @@
       return;
     }
     const box = desktop.getBoundingClientRect();
-    tip.textContent = cell.group + " · " + cell.name + (cell.done ? " (implemented)" : " (missing)");
+    const helped = cell.pr ? " · our PR #" + cell.pr.number + (cell.pr.state === "merged" ? " (merged)" : " (in review)") : "";
+    tip.textContent = cell.group + " · " + cell.name + (cell.done ? " (implemented)" : " (missing)") + helped;
     tip.hidden = false;
     tip.style.zIndex = "100000";
     tip.style.left = Math.min(event.clientX - box.left + 14, box.width - tip.offsetWidth - 4) + "px";

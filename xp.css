@@ -1076,6 +1076,63 @@ legend .open {
   background: #fff;
 }
 
+.swatch.helped {
+  background: #f0a020;
+}
+
+.swatch.helped-open {
+  background: #f8d98c;
+}
+
+.helped-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+}
+
+.helped-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ece9d8;
+}
+
+.helped-list li:last-child {
+  border-bottom: 0;
+}
+
+.helped-list a {
+  font-weight: 700;
+}
+
+.helped-list .what {
+  flex: 1;
+}
+
+.helped-list .count {
+  color: #555;
+  white-space: nowrap;
+}
+
+.helped-list .merged,
+.helped-list .open {
+  padding: 0 6px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.helped-list .merged {
+  background: #8250df;
+}
+
+.helped-list .open {
+  background: #1f883d;
+}
+
 .listwrap {
   max-height: 190px;
   overflow: auto;
