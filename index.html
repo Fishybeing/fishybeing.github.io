@@ -397,6 +397,14 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1116" target="_blank" rel="noopener">View #1116</a></div>
       </fieldset>
       <fieldset>
+        <legend>#1126 · Parse wide strings as 16-bit on Linux <span class="open">open</span></legend>
+        <ul class="notes">
+          <li>Follow-up to #1116: the number parsers (<code>wcstol</code>, <code>wcstod</code> and the rest), <code>wcscoll</code> and <code>wcsxfrm</code> had the same 32-bit problem on Linux.</li>
+          <li>They now parse the ASCII part of the 16-bit string, which is exactly what the C standard allows in the default locale, with tests for every edge case.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1126" target="_blank" rel="noopener">View #1126</a></div>
+      </fieldset>
+      <fieldset>
         <legend>How they were tested</legend>
         <ul class="notes">
           <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the non-GPU test suite (181 to 196 tests as the project grew), all passing.</li>
@@ -411,7 +419,7 @@ things sitting on the hill:
         <a class="xp-btn" href="https://github.com/boykopovar/AnyPS5" target="_blank" rel="noopener">Project on GitHub</a>
       </div>
     </div>
-    <footer class="statusbar"><span>4 merged · 2 open</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
+    <footer class="statusbar"><span>4 merged · 3 open</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
   </section>
 
   <section class="window" id="win-status" data-icon="i-defrag" style="--w: 640px" role="dialog" aria-labelledby="t-status" hidden>
