@@ -445,7 +445,8 @@
   }
 
   function updateRunning() {
-    const should = !still && !document.hidden;
+    const wallpaper = desktop.dataset.wallpaper;
+    const should = !still && !document.hidden && (!wallpaper || wallpaper === "hill3d");
     if (should === running) return;
     running = should;
     if (running) {
@@ -455,6 +456,10 @@
   }
 
   window.addEventListener("resize", resize);
+  window.addEventListener("xp:wallpaper", function () {
+    updateRunning();
+    if (!running) requestRender();
+  });
   document.addEventListener("visibilitychange", updateRunning);
   resize();
   if (still) animate(0, 0);

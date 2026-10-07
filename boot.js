@@ -186,6 +186,7 @@
 
   function chime() {
     try {
+      if (window.xpSoundOn && !window.xpSoundOn()) return;
       const Context = window.AudioContext || window.webkitAudioContext;
       if (!Context) return;
       const audio = new Context();

@@ -42,7 +42,7 @@
       win.classList.toggle("maximized");
     });
     win.querySelector(".titlebar").addEventListener("dblclick", function (event) {
-      if (!event.target.closest("button")) win.classList.toggle("maximized");
+      if (!event.target.closest("button") && !win.hasAttribute("data-fixed")) win.classList.toggle("maximized");
     });
     makeDraggable(win);
   });
