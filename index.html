@@ -350,7 +350,7 @@ things sitting on the hill:
     <div class="window-body">
       <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. I've been sending it small fixes found while building it on Windows and digging through its progress map.</p>
       <fieldset>
-        <legend>#872 · Guard NOMINMAX on Windows</legend>
+        <legend>#872 · Guard NOMINMAX on Windows <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>Four Windows sources redefined <code>NOMINMAX</code>, so every MinGW build printed the same warning four times.</li>
           <li>Each define now uses the <code>#ifndef</code> guard the rest of the project already uses. The build has no warnings left in project code.</li>
@@ -358,7 +358,7 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/872" target="_blank" rel="noopener">View #872</a></div>
       </fieldset>
       <fieldset>
-        <legend>#883 · Fix the MemoryPool.hpp include guard</legend>
+        <legend>#883 · Fix the MemoryPool.hpp include guard <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>The header checked <code>..._LIBKERNEL_...</code> but defined <code>..._LINKERNEL_...</code>, so its include guard never worked.</li>
           <li>Found with <code>-Wall -Wextra</code> across all 905 project sources. One-letter fix.</li>
@@ -366,7 +366,7 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/883" target="_blank" rel="noopener">View #883</a></div>
       </fieldset>
       <fieldset>
-        <legend>#886 · Count sceHttpParseStatusLine as implemented</legend>
+        <legend>#886 · Count sceHttpParseStatusLine as implemented <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>The progress map listed this HTTP parser as missing, even though it was written and tested.</li>
           <li>A range-limit check used the "not implemented" stub, which the progress tool counts as missing. It now throws like its sibling parser, so libraries go from 2449 to 2450.</li>
@@ -374,7 +374,7 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/886" target="_blank" rel="noopener">View #886</a></div>
       </fieldset>
       <fieldset>
-        <legend>#923 · Correct the barycentric entry in TechnicalDebt</legend>
+        <legend>#923 · Correct the barycentric entry in TechnicalDebt <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>The known-gaps list said barycentric coordinates were skipped entirely. They're implemented end to end; only GPUs without the barycentric extension fall back.</li>
           <li>The entry now describes that fallback and links the code behind it. Found while running cppcheck over the whole project.</li>
@@ -382,9 +382,24 @@ things sitting on the hill:
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/923" target="_blank" rel="noopener">View #923</a></div>
       </fieldset>
       <fieldset>
+        <legend>#1115 · Guard NOMINMAX in Rtld.cpp <span class="open">open</span></legend>
+        <ul class="notes">
+          <li>A file added to the project after #872 brought the same <code>NOMINMAX</code> warning back. Same two-line guard.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1115" target="_blank" rel="noopener">View #1115</a></div>
+      </fieldset>
+      <fieldset>
+        <legend>#1116 · Read wide strings as 16-bit on Linux <span class="open">open</span></legend>
+        <ul class="notes">
+          <li>The PS5's <code>wchar_t</code> is 16 bits, but 15 libc string functions used the host's, which is 32 bits on Linux. Wide text got wrong lengths and comparisons, and copies could overrun.</li>
+          <li>Rewrote <code>wcslen</code>, <code>wcscmp</code>, <code>wcscpy</code>, <code>wmemcpy</code> and the rest on 16-bit units, with a new test covering every one of them.</li>
+        </ul>
+        <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1116" target="_blank" rel="noopener">View #1116</a></div>
+      </fieldset>
+      <fieldset>
         <legend>How they were tested</legend>
         <ul class="notes">
-          <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the 181 non-GPU tests, all passing.</li>
+          <li>Built with MinGW-w64 GCC 15.2 on Windows 11 and ran the non-GPU test suite (181 to 196 tests as the project grew), all passing.</li>
         </ul>
       </fieldset>
       <fieldset>
@@ -396,7 +411,7 @@ things sitting on the hill:
         <a class="xp-btn" href="https://github.com/boykopovar/AnyPS5" target="_blank" rel="noopener">Project on GitHub</a>
       </div>
     </div>
-    <footer class="statusbar"><span>3 pull requests</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
+    <footer class="statusbar"><span>4 merged · 2 open</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
   </section>
 
   <section class="window" id="win-status" data-icon="i-defrag" style="--w: 640px" role="dialog" aria-labelledby="t-status" hidden>

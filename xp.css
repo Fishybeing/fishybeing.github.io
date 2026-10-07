@@ -858,6 +858,25 @@ fieldset .actions {
   margin-top: 8px;
 }
 
+legend .merged,
+legend .open {
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
+
+legend .merged {
+  background: #8250df;
+}
+
+legend .open {
+  background: #1f883d;
+}
+
 .xp-btn {
   display: inline-flex;
   align-items: center;
