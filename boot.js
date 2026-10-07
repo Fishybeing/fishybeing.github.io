@@ -16,7 +16,7 @@
     three: "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js",
     threeBytes: 603445,
     wallpaper: "wallpaper.js",
-    images: ["img/haystack.jpg"]
+    images: ["img/bliss.jpg", "img/haystack.jpg"]
   };
   const weights = { three: 0.6, scene: 0.25, images: 0.15 };
   const progress = { three: 0, scene: 0, images: 0 };

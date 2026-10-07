@@ -233,6 +233,7 @@ body.resizing iframe {
   }
 }
 
+.desktop[data-wallpaper="bliss"] #wallpaper,
 .desktop[data-wallpaper="none"] #wallpaper,
 .desktop[data-wallpaper="hill"] #wallpaper,
 .desktop[data-wallpaper="azure"] #wallpaper,
@@ -243,6 +244,11 @@ body.resizing iframe {
 .desktop[data-wallpaper="none"],
 .monitor-screen[data-wallpaper="none"] {
   background: #004e98;
+}
+
+.desktop[data-wallpaper="bliss"],
+.monitor-screen[data-wallpaper="bliss"] {
+  background: #3a6ea5 url("img/bliss.jpg") center / cover no-repeat;
 }
 
 .desktop[data-wallpaper="azure"],

@@ -184,16 +184,16 @@
     if (startMenu.hidden) showAllPrograms(false);
   }).observe(startMenu, { attributes: true, attributeFilter: ["hidden"] });
 
-  const wallpapers = ["none", "hill3d", "hill", "azure", "night"];
+  const wallpapers = ["bliss", "none", "hill3d", "hill", "azure", "night"];
 
   function setWallpaper(name) {
-    const chosen = wallpapers.indexOf(name) >= 0 ? name : "none";
+    const chosen = wallpapers.indexOf(name) >= 0 ? name : "bliss";
     desktop.dataset.wallpaper = chosen;
-    storage.set("xp-background", chosen);
+    storage.set("xp-desktop", chosen);
     window.dispatchEvent(new Event("xp:wallpaper"));
   }
 
-  setWallpaper(storage.get("xp-background") || "none");
+  setWallpaper(storage.get("xp-desktop") || "bliss");
 
   (function displayProperties() {
     const screen = document.getElementById("display-screen");
