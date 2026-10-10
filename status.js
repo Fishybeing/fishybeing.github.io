@@ -26,8 +26,8 @@
 
   const ourPrs = [
     { number: 886, state: "merged", title: "Count sceHttpParseStatusLine as implemented", functions: ["sceHttpParseStatusLine"] },
-    { number: 1116, state: "open", title: "Read guest wide strings as 16-bit units", functions: libc(["wcslen", "wcscpy", "wcsncpy", "wcscmp", "wcsncmp", "wcschr", "wcsrchr", "wcsstr", "wcspbrk", "wcsspn", "wmemchr", "wmemcmp", "wmemcpy", "wmemmove", "wmemset"]) },
-    { number: 1126, state: "open", title: "Parse and collate guest wide strings as 16-bit units", functions: libc(["wcscoll", "wcsxfrm", "wcstol", "wcstoll", "wcstoul", "wcstoull", "wcstof", "wcstod", "wcstold"]) },
+    { number: 1116, state: "merged", title: "Read guest wide strings as 16-bit units", functions: libc(["wcslen", "wcscpy", "wcsncpy", "wcscmp", "wcsncmp", "wcschr", "wcsrchr", "wcsstr", "wcspbrk", "wcsspn", "wmemchr", "wmemcmp", "wmemcpy", "wmemmove", "wmemset"]) },
+    { number: 1126, state: "merged", title: "Parse and collate guest wide strings as 16-bit units", functions: libc(["wcscoll", "wcsxfrm", "wcstol", "wcstoll", "wcstoul", "wcstoull", "wcstof", "wcstod", "wcstold"]) },
     { number: 872, state: "merged", title: "Guard NOMINMAX before including windows.h", functions: [] },
     { number: 883, state: "merged", title: "Fix the MemoryPool.hpp include guard", functions: [] },
     { number: 923, state: "merged", title: "Correct the barycentric entry in TechnicalDebt", functions: [] },

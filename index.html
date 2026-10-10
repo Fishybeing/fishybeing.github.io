@@ -464,6 +464,19 @@ Double-click an icon on the left.
     <nav class="menubar" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Help</span></nav>
     <div class="window-body">
       <p class="pitch">AnyPS5 is an open-source tool that ports PS5 executables to Linux and Windows. I've been sending it small fixes found while building it on Windows and digging through its progress map.</p>
+      <fieldset class="share" aria-live="polite">
+        <legend>My share of AnyPS5</legend>
+        <div class="share-head"><b id="share-percent">...</b><span>of all the lines of code in AnyPS5 came from my merged pull requests</span></div>
+        <p class="share-ratio" id="share-ratio">Counting on GitHub...</p>
+        <div class="stats">
+          <div><b id="share-added">...</b><span>lines added</span></div>
+          <div><b id="share-removed">...</b><span>lines removed</span></div>
+          <div><b id="share-prs">...</b><span id="share-prs-label">merged pull requests</span></div>
+          <div><b id="share-size">...</b><span>lines in the whole project</span></div>
+        </div>
+        <p class="footnote" id="share-note">These numbers are counted live from GitHub when this window opens.</p>
+        <div class="actions"><button class="xp-btn" type="button" id="share-recount">Recount</button></div>
+      </fieldset>
       <fieldset>
         <legend>#872 · Guard NOMINMAX on Windows <span class="merged">merged</span></legend>
         <ul class="notes">
@@ -504,7 +517,7 @@ Double-click an icon on the left.
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1115" target="_blank" rel="noopener">View #1115</a></div>
       </fieldset>
       <fieldset>
-        <legend>#1116 · Read wide strings as 16-bit on Linux <span class="open">open</span></legend>
+        <legend>#1116 · Read wide strings as 16-bit on Linux <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>The PS5's <code>wchar_t</code> is 16 bits, but 15 libc string functions used the host's, which is 32 bits on Linux. Wide text got wrong lengths and comparisons, and copies could overrun.</li>
           <li>Rewrote <code>wcslen</code>, <code>wcscmp</code>, <code>wcscpy</code>, <code>wmemcpy</code> and the rest on 16-bit units, with a new test covering every one of them.</li>
@@ -512,7 +525,7 @@ Double-click an icon on the left.
         <div class="actions"><a class="xp-btn" href="https://github.com/boykopovar/AnyPS5/pull/1116" target="_blank" rel="noopener">View #1116</a></div>
       </fieldset>
       <fieldset>
-        <legend>#1126 · Parse wide strings as 16-bit on Linux <span class="open">open</span></legend>
+        <legend>#1126 · Parse wide strings as 16-bit on Linux <span class="merged">merged</span></legend>
         <ul class="notes">
           <li>Follow-up to #1116: the number parsers (<code>wcstol</code>, <code>wcstod</code> and the rest), <code>wcscoll</code> and <code>wcsxfrm</code> had the same 32-bit problem on Linux.</li>
           <li>They now parse the ASCII part of the 16-bit string, which is exactly what the C standard allows in the default locale, with tests for every edge case.</li>
@@ -534,7 +547,7 @@ Double-click an icon on the left.
         <a class="xp-btn" href="https://github.com/boykopovar/AnyPS5" target="_blank" rel="noopener">Project on GitHub</a>
       </div>
     </div>
-    <footer class="statusbar"><span>4 merged · 3 open</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
+    <footer class="statusbar"><span>7 merged</span><span>boykopovar/AnyPS5 · GPL-2.0</span></footer>
   </section>
 
   <section class="window" id="win-status" data-icon="i-defrag" style="--w: 640px" role="dialog" aria-labelledby="t-status" hidden>
@@ -938,6 +951,7 @@ Double-click an icon on the left.
 <script src="desktop.js"></script>
 <script src="status.js"></script>
 <script src="apps.js"></script>
+<script src="contrib.js"></script>
 <script src="boot.js"></script>
 </body>
 </html>

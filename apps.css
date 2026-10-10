@@ -1027,3 +1027,34 @@ body.resizing iframe {
     display: none;
   }
 }
+
+.share-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+
+.share-head b {
+  font: 700 34px/1 var(--title);
+  color: #0b3fa8;
+}
+
+.share-ratio {
+  margin: 6px 0 10px;
+}
+
+.share .footnote {
+  margin-top: 8px;
+}
+
+legend .closed {
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 8px;
+  background: #6e7781;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  vertical-align: 1px;
+}
